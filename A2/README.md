@@ -38,7 +38,7 @@ Describe all stages and processes of the use case
 Shows the exchange of information between the stakeholders in the use case * Show the inputs and outputs between your tool and other data models, experts, stakeholders etc.
 Clearly show the exchange of information between your tool and the IFC model. Which specific IFC classes are being checked or manipulated? -->
 
-![BPMN Diagram](A2/diagram.svg)
+![BPMN Diagram](diagram.svg)
 
 
 
