@@ -47,13 +47,15 @@ Clearly show the exchange of information between your tool and the IFC model. Wh
 <!-- From the 'whole use case' identify where a new script / function / tool is needed. Highlight this in your BPMN diagram. Show this clearly in a new SVG diagram. You may wish to change the SVG diagram, you can use inkscape for this task. -->
 
 
-
 #A2e: Tool Idea
 
-Describe in words your idea for your own OpenBIM ifcOpenShell Tool in Python.
-What is the business and societal value of your tool?
+<!-- Describe in words your idea for your own OpenBIM ifcOpenShell Tool in Python. -->
 
-Produce a BPMN diagram to summarise your idea. Save this in a folder in your repository along with an SVG of the disagram and embed the SVG in the Markdown as an image.
+The tool takes the beam dimensions from the model, saves them in a dictionary with the global ID as key, and the width, height and length as values stored in a list. These dimensions are used to calculate the maximum uniform load with the assumption that the beams are simply supported. The end goal of the this, is to have another group provide the loads from the slabs supported by the beams and check if the capacity is sufficient. From there, we can pass on the loads continuing down the columns to another group whom will do the same type of calculations as us. 
+
+<!-- What is the business and societal value of your tool? -->
+
+With this tool, you can quickly and effectively check for beams in risk of not having sufficient capacity, and therefore save hours of work, and optimize the security of the building
 
 
 #A2f: Information Requirements
