@@ -62,11 +62,21 @@ With this tool, you can quickly and effectively check for beams in risk of not h
 
 #A2f: Information Requirements
 <!-- Identify what information you need to extract from the model -->
-<!-- Where is this in IFC? -->
-<!-- Is it in the model? -->
-<!-- Do you know how to get it in ifcOpenShell? -->
-<!-- What will you need to learn to do this? [Enrolled students only]: add to this excel in teams -->
+Beam dimensions
 
+<!-- Where is this in IFC? -->
+The information is stored in two different ways. 
+1.	Property sets: The ifc property sets include the dimensions of the beams
+2.	Geometry: The nodes of the beams are stored as coordinates where you can calculate the dimensions manually.
+
+<!-- Is it in the model? -->
+Yes, in the model "25-16-D-STR" both the property sets and geometry are available. For some models, the property sets are not available which means you have to use the geometry.
+
+<!-- Do you know how to get it in ifcOpenShell? -->
+Yes, it is fetched with this method:
+1.	Property sets: get.attr
+2.	Geometr: ifcopenshell.geom
 
 #A2g: Identify appropriate software licence
 <!-- What software licence will you choose for your project? -->
+Not sure what to answer
