@@ -31,14 +31,16 @@ In the design and evaluation phase.
 To analyse the structural model
 
 
-<!-- Produce a BPMN-diagram for your chosen use case. Link to this so we can see it in your markdown file. To do this you will have to save it as an SVG, please also save the BPMN with it. You can use this online tool to create BPMN-diagrams -->
-
-
+<!-- Produce a BPMN-diagram for your chosen use case. Link to this so we can see it in your markdown file. To do this you will have to save it as an SVG, please also save the BPMN with it. You can use this online tool to create BPMN-diagrams
 Your use case diagram should:
 
 Describe all stages and processes of the use case
 Shows the exchange of information between the stakeholders in the use case * Show the inputs and outputs between your tool and other data models, experts, stakeholders etc.
-Clearly show the exchange of information between your tool and the IFC model. Which specific IFC classes are being checked or manipulated?
+Clearly show the exchange of information between your tool and the IFC model. Which specific IFC classes are being checked or manipulated? -->
+
+![BPMN Diagram](A2/diagram.svg)
+
+
 
 
 
