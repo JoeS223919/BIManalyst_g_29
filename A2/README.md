@@ -48,6 +48,8 @@ Clearly show the exchange of information between your tool and the IFC model. Wh
 
 <!-- From the 'whole use case' identify where a new script / function / tool is needed. Highlight this in your BPMN diagram. Show this clearly in a new SVG diagram. You may wish to change the SVG diagram, you can use inkscape for this task. -->
 
+![BPMN Diagram](diagram2.svg)
+
 
 #A2e: Tool Idea
 
