@@ -1,17 +1,16 @@
-
 def beam_dimensions(model):
-    beam_like_entities = [
-    entity for entity in model
-    if "beam" in entity.is_a().lower() or "member" in entity.is_a().lower()]  
-    results = []
     beam_like_entities = [
         entity for entity in model
         if "beam" in entity.is_a().lower() or "member" in entity.is_a().lower()
     ]
+
+    results = {}
+
     for beam in beam_like_entities:
         dimensions = {}
         cut_length = None
-        # Type Property Set: Dimensions (alle properties)
+
+        # --- Type Property Set: Dimensions (height/width) ---
         for rel in getattr(beam, "IsTypedBy", []):
             type_obj = rel.RelatingType
             for type_rel in getattr(type_obj, "HasPropertySets", []):
@@ -24,8 +23,9 @@ def beam_dimensions(model):
                             value = nv.value
                         else:
                             value = nv
-                        dimensions[prop.Name] = value
-        # Instance Property Set: Structural (kun cut length)
+                        dimensions[prop.Name.lower()] = value
+
+        # --- Instance Property Set: Structural (cut length) ---
         for rel in getattr(beam, "IsDefinedBy", []):
             if rel.is_a("IfcRelDefinesByProperties"):
                 pset = rel.RelatingPropertyDefinition
@@ -39,12 +39,14 @@ def beam_dimensions(model):
                                 cut_length = nv.value
                             else:
                                 cut_length = nv
-    
+
+        # --- Build the final dictionary entry ---
         global_id = getattr(beam, "GlobalId", None)
         if global_id:
             results[global_id] = {
                 "b": dimensions.get("b"),
                 "h": dimensions.get("h"),
                 "l": cut_length
-        }
+            }
+
     return results
