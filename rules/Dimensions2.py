@@ -44,8 +44,13 @@ def beam_dimensions(model):
         global_id = getattr(beam, "GlobalId", None)
         if global_id:
             results[global_id] = {
+<<<<<<< HEAD
                 "b": dimensions.get("b"),
                 "h": dimensions.get("h"),
+=======
+                "h": dimensions.get("h"),
+                "b": dimensions.get("b"),
+>>>>>>> d489df451cf2213cb411ae107fac8449a901f202
                 "l": cut_length
             }
 

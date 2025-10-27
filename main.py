@@ -5,6 +5,7 @@ from rules import HowManyBeams
 from rules import BeamClassifications
 from rules import checkIfBeamHasClassification
 from rules import Dimensions
+from rules import Dimensions2
 from rules import max_UDL
 
 
@@ -14,13 +15,20 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 
 # windowResult = windowRule.checkRule(model)
 # doorResult = doorRule.checkRule(model)
+# beamResult = beamRule.checkRule(model)
+# checkBeamClassificationResult = checkBeamClassification.checkRule(model1)
 # beamClassificationsResult = BeamClassifications.checkRule(model1, 1)
 
 
-DimensionsResult = Dimensions.beam_dimensions(model)
-print("Dimensions result:", DimensionsResult)
-maxUDLResult = max_UDL.checkRule(DimensionsResult)
-print("Max UDL result:", maxUDLResult)
+# DimensionsResult = Dimensions.beam_dimensions(model)
+# print("Dimensions result:", DimensionsResult)
+
+
+DimensionsResult2 = Dimensions2.beam_dimensions(model)
+print("Dimensions result:", DimensionsResult2["2MZkIr_HjEQ9IL5AB3PY2W"])
+
+# maxUDLResult = max_UDL.checkRule(DimensionsResult)
+# print("Max UDL result:", maxUDLResult)
 
 
 #for beam_info in DimensionsResult:
