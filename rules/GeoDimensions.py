@@ -58,9 +58,9 @@ def checkRule(ifc_file):
 
             GeoDimensions[beam.GlobalId] = {
                 "GlobalId": beam.GlobalId,
-                "l": round(length_mm, 2),
                 "b": round(width_mm, 2),
-                "h": round(height_mm, 2)
+                "h": round(height_mm, 2),
+                "l": round(length_mm, 2)
             }
 
         except Exception as e:
