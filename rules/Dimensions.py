@@ -39,10 +39,12 @@ def beam_dimensions(model):
                                 cut_length = nv.value
                             else:
                                 cut_length = nv
-        results.append({
-            "GlobalId": getattr(beam, 'GlobalId', None),
-            "b": dimensions.get('b'),
-            "h": dimensions.get('h'),
-            "l": cut_length
-        })
+    
+        global_id = getattr(beam, "GlobalId", None)
+        if global_id:
+            results[global_id] = {
+                "b": dimensions.get("b"),
+                "h": dimensions.get("h"),
+                "l": cut_length
+        }
     return results
