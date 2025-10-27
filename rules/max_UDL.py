@@ -1,18 +1,16 @@
 import ifcopenshell
 
-
-def checkRule(beam_info_dict):
+def checkRule(beam_info_dict, concrete_strength_mpa=25):
     results = {}
 
-    for beam_info in beam_info_dict:
+    for beam_id, dimensions in beam_info_dict.items():
         # Extract dimensions
-        width_mm = beam_info['Dimensions'].get('b')
-        height_mm = beam_info['Dimensions'].get('h')
-        length_mm = beam_info['CutLength']
-        concrete_strength_mpa = 25  # Example concrete strength in MPa
+        width_mm = dimensions.get('b')
+        height_mm = dimensions.get('h')
+        length_mm = dimensions.get('l')
 
         if not all([width_mm, height_mm, length_mm]):
-            results[beam_info['GlobalId']] = None  # Incomplete data
+            results[beam_id] = None  # Incomplete data
             continue
 
         if length_mm < 500:
@@ -39,7 +37,6 @@ def checkRule(beam_info_dict):
         max_uniform_load_kn_per_m = max_uniform_load_n_per_m / 1000
 
         # Store result
-        results[beam_info['GlobalId']] = max_uniform_load_kn_per_m
-
+        results[beam_id] = max_uniform_load_kn_per_m
 
     return results

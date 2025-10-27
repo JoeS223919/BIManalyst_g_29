@@ -1,11 +1,8 @@
 import ifcopenshell
 import ifcopenshell.util.classification
 
-from rules import HowManyBeams
 from rules import BeamClassifications
-from rules import checkIfBeamHasClassification
 from rules import Dimensions
-from rules import Dimensions2
 from rules import max_UDL
 
 
@@ -20,16 +17,19 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 # beamClassificationsResult = BeamClassifications.checkRule(model1, 1)
 
 
-# DimensionsResult = Dimensions.beam_dimensions(model)
-# print("Dimensions result:", DimensionsResult)
+DimensionsResult = Dimensions.beam_dimensions(model)
+print("Dimensions result:", DimensionsResult)
 
+maxUDLResult = max_UDL.checkRule(DimensionsResult)
+print("Max UDL result:", maxUDLResult)
 
-DimensionsResult2 = Dimensions2.beam_dimensions(model)
-print("Dimensions result:", DimensionsResult2["2MZkIr_HjEQ9IL5AB3PY2W"])
-
-# maxUDLResult = max_UDL.checkRule(DimensionsResult)
-# print("Max UDL result:", maxUDLResult)
-
+# print("Window result:", windowResult)
+# print("Door result:", doorResult)
+# print("Beam classifications:", beamClassificationsResult)
+# print('--------------------------------------------------')
+# print('Number of beams with classification: ', len(checkBeamClassificationResult[0]), 
+#       'Number of beams without classification: ', len(checkBeamClassificationResult[1]),
+#       'Total number of beams: ', len(model1.by_type("IfcBeam")))
 
 #for beam_info in DimensionsResult:
 #    print(f"GlobalId: {beam_info['GlobalId']}, Name: {beam_info['Name']}")
