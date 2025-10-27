@@ -57,6 +57,7 @@ def checkRule(ifc_file):
                 height_mm = min(dim1, dim2) * 1000
 
             GeoDimensions[beam.GlobalId] = {
+                "GlobalId": beam.GlobalId,
                 "l": round(length_mm, 2),
                 "b": round(width_mm, 2),
                 "h": round(height_mm, 2)
