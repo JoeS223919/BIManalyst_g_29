@@ -5,36 +5,48 @@ import ifcopenshell
 # Open the IFC model
 model = ifcopenshell.open("samples/25-16-D-STR.ifc")
 
-# Ask the user for the GlobalId they want to inspect
+# Ask for GlobalId
 target_global_id = input("Enter the GlobalId to inspect: ").strip()
 
-# Get all data from both modules
+# Get full datasets
 D_psets = Dimensions.beam_dimensions(model)
 D_Geo = GeoDimensions.checkRule(model)
 
-# Filter results by GlobalId
+# Helper: filter dataset by GlobalId
 def filter_by_global_id(data, gid):
     if isinstance(data, dict):
-        # If dict has the GlobalId as a key
         if gid in data:
-            return {gid: data[gid]}
-        # Or if it's nested and we need to search inside
-        for key, val in data.items():
+            return data[gid]
+        for val in data.values():
             if isinstance(val, dict) and val.get("GlobalId") == gid:
-                return {key: val}
-        return {}
+                return val
     elif isinstance(data, list):
         for item in data:
             if isinstance(item, dict) and item.get("GlobalId") == gid:
                 return item
-        return None
+    return None
+
+# Extract entries
+pset_entry = filter_by_global_id(D_psets, target_global_id)
+geo_entry = filter_by_global_id(D_Geo, target_global_id)
+
+# Check and compare dimensions
+def approx_equal(a, b, tol=1.0):
+    try:
+        return abs(float(a) - float(b)) <= tol
+    except (TypeError, ValueError):
+        return False
+
+if pset_entry and geo_entry:
+    b_match = approx_equal(pset_entry.get("b"), geo_entry.get("b"))
+    h_match = approx_equal(pset_entry.get("h"), geo_entry.get("h"))
+    l_match = approx_equal(pset_entry.get("l"), geo_entry.get("l"))
+
+    if b_match and h_match and l_match:
+        print("TRUE")
     else:
-        return None
-
-# Filter both datasets
-filtered_psets = filter_by_global_id(D_psets, target_global_id)
-filtered_geo   = filter_by_global_id(D_Geo, target_global_id)
-
-# Print results
-print("PSET result for", target_global_id, ":\n", filtered_psets)
-print("\nGEO result for", target_global_id, ":\n", filtered_geo)
+        print("FALSE")
+        print("\nD_psets:", pset_entry)
+        print("\nD_Geo:", geo_entry)
+else:
+    print("GlobalId not found in one or both datasets.")
