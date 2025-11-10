@@ -18,10 +18,12 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 
 
 DimensionsResult = Dimensions.beam_dimensions(model)
-print("Dimensions result:", DimensionsResult)
+#print("Dimensions result:", DimensionsResult)
 
 maxUDLResult = max_UDL.checkRule(DimensionsResult)
-print("Max UDL result:", maxUDLResult)
+#print("Max UDL result:", maxUDLResult)
+
+print(maxUDLResult['08KUHnYqn7HvCxSyjUsDVX'])
 
 # print("Window result:", windowResult)
 # print("Door result:", doorResult)
