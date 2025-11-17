@@ -1,4 +1,4 @@
-def concrete_uniform_load_capacity(h, b, L, d, As, fck, fyk):
+def uniform_load_capacity(h, b, L, d, As, fck, fyk):
     """
     Compute uniform load capacity (kN/m) for a simply supported
     singly reinforced rectangular concrete beam governed by bending.
