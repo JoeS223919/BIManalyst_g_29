@@ -1,82 +1,51 @@
-import math
+"""
+i_beam_capacity.py
 
-def i_beam_uniform_load_capacity(h, b, r, tw, tf, L, fy=250.0):
-    """
-    Calculate uniform load capacity (kN/m) of a symmetric steel I-beam on a simply supported span.
-    Units:
-      h, b, r, tw, tf: mm
-      L: m
-      fy: MPa (N/mm^2)
-    Returns:
-      { 'I_mm4': ..., 'S_mm3': ..., 'M_resisting_kNm': ..., 'w_allow_kN_per_m': ... }
-    """
-    # Basic checks
-    if L <= 0:
-        raise ValueError("Span L must be > 0 (m).")
-    if any(x <= 0 for x in (h, b, tw, tf)):
-        raise ValueError("h, b, tw, tf must be positive (mm).")
+Compute section properties and uniform load bending capacity for a symmetric I-beam
+using the rectangular-flange + web approximation (fillets ignored).
 
-    # web clear height (approx) excluding flange thickness
+Inputs are in the same units you gave (mm for geometry, MPa for fy, m for span L).
+
+Outputs: I (mm^4), S (mm^3), Z (mm^3), My & Mp (kN·m), and uniform load w (kN/m)
+for both elastic (first-yield) and plastic capacities for a simply supported beam.
+
+Usage: python i_beam_capacity.py
+
+"""
+
+def uniform_load_capacity(h, b, tw, tf, L, fy):
+    """
+    Compute elastic and plastic uniform load capacity (kN/m) for a simply
+    supported I‑beam using flange+web approximation.
+    Inputs: geometry in mm, L in m, fy in MPa.
+    Returns: (w_elastic, w_plastic).
+    """
+    from math import isfinite
+
     hw = h - 2.0 * tf
     if hw <= 0:
-        raise ValueError("Web height hw = h - 2*tf <= 0. Check geometry.")
+        raise ValueError("Invalid geometry: tf too large relative to h.")
 
     # Areas
-    A_flange = b * tf            # mm^2
-    A_web = tw * hw              # mm^2
+    A_flange = b * tf
+    d = (h/2.0) - (tf/2.0)
 
-    # Second moment of area (about horizontal centroidal axis through mid-height)
-    # flange contribution (about its own centroid): b*tf^3/12
-    I_flange_about_centroid = b * tf**3 / 12.0  # mm^4
-    # distance from flange centroid to neutral axis:
-    dy = (h / 2.0) - (tf / 2.0)  # mm
-    # Parallel axis
-    I_flange_total_each = I_flange_about_centroid + A_flange * dy**2
+    # Inertia
+    I_flange_centroid = (b * tf**3) / 12.0
+    I_flange_total = I_flange_centroid + A_flange * d**2
+    I_web = (tw * hw**3) / 12.0
+    I = 2.0 * I_flange_total + I_web
 
-    # web inertia about centroid (vertical rectangle)
-    I_web = tw * hw**3 / 12.0    # mm^4
+    S = I / (h/2.0)
+    Z = 2.0 * (A_flange * d) + (tw * hw**2) / 4.0
 
-    # total I (two flanges + web)
-    I_total = 2.0 * I_flange_total_each + I_web  # mm^4
+    My = fy * S * 1e-6
+    Mp = fy * Z * 1e-6
 
-    # Elastic section modulus S = I / (h/2)
-    c = h / 2.0  # distance to extreme fiber (mm)
-    S = I_total / c  # mm^3
+    if L <= 0 or not isfinite(L):
+        raise ValueError("Span L must be positive.")
 
-    # Resisting moment (elastic) M = S * fy (fy in N/mm^2 => M in N*mm)
-    # Convert to N*m (divide by 1e6) and to kN*m (divide by 1e6 then /1000 => /1e6 already gives N*m; convert to kN*m by /1000)
-    M_resisting_Nmm = S * fy  # N*mm
-    M_resisting_Nm = M_resisting_Nmm / 1e6  # N*m
-    M_resisting_kNm = M_resisting_Nm / 1000.0  # kN*m
+    w_elastic = 8.0 * My / (L**2)
+    w_plastic = 8.0 * Mp / (L**2)
+    return w_elastic
 
-    # Uniform load capacity for simply supported beam: max moment = w*L^2/8 => w = 8*M / L^2
-    # Use M in N*m to get w in N/m, then convert to kN/m
-    w_allow_N_per_m = 8.0 * M_resisting_Nm / (L**2)  # N/m
-    w_allow_kN_per_m = w_allow_N_per_m / 1000.0      # kN/m
-
-    return {
-        'I_mm4': I_total,
-        'S_mm3': S,
-        'M_resisting_kNm': M_resisting_kNm,
-        'w_allow_kN_per_m': w_allow_kN_per_m,
-        'area_flange_mm2': A_flange,
-        'area_web_mm2': A_web,
-        'hw_mm': hw
-    }
-
-# Example usage:
-if __name__ == "__main__":
-    # Example geometry (mm) and span (m)
-    h = 300.0   # mm
-    b = 150.0   # mm
-    r = 10.0    # mm (ignored in inertia calc)
-    tw = 8.0    # mm
-    tf = 12.0   # mm
-    L = 6.0     # m
-    fy = 355.0  # MPa
-
-    res = i_beam_uniform_load_capacity(h, b, r, tw, tf, L, fy=fy)
-    print("I (mm^4):", round(res['I_mm4'], 2))
-    print("S (mm^3):", round(res['S_mm3'], 2))
-    print("Resisting moment M (kN·m):", round(res['M_resisting_kNm'], 3))
-    print("Allowable uniform load w (kN/m):", round(res['w_allow_kN_per_m'], 3))
