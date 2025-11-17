@@ -27,11 +27,11 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 
 DimensionsResult = Dimensions.beam_dimensions(model)
 #print("Dimensions result:", DimensionsResult)
-#print(DimensionsResult['08KUHnYqn7HvCxSyjUsDQb'])
+print(DimensionsResult['08KUHnYqn7HvCxSyjUsDQb'])
 
-maxUDLResult = max_UDL.checkRule(DimensionsResult)
+# maxUDLResult = max_UDL.checkRule(DimensionsResult)
 #print("Max UDL result:", maxUDLResult)
-print(maxUDLResult['08KUHnYqn7HvCxSyjUsDQb'])
+# print(maxUDLResult['08KUHnYqn7HvCxSyjUsDQb'])
 
 
 # Example usage:
