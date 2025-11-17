@@ -1,4 +1,5 @@
 import ifcopenshell
+from rules import i_beam_ULC
 
 def checkRule(beam_info_dict):
     results = {}
@@ -23,9 +24,11 @@ def checkRule(beam_info_dict):
         length_m = length_mm / 1000
 
         if "HEM".lower() in dimensions.get('Name').lower():
-            material_strength_mpa = 250  # Example: 250 MPa for structural steel
+            # Example: 250 MPa for structural steel
+            material_strength_mpa = 250
 
-            results[beam_id] = max_uniform_load_kn_per_m
+            # Calculate maximum uniform load using i_beam_ULC module
+            results[beam_id] = i_beam_ULC.uniform_load_capacity(height_mm, width_mm, thickness_body_mm, thickness_flange_mm, length_m, material_strength_mpa)
         
         elif "concrete".lower() in dimensions.get('Name').lower():
             material_strength_mpa = 30  # Example: 30 MPa for normal concrete
@@ -50,7 +53,7 @@ def checkRule(beam_info_dict):
         
         elif "glulam".lower() in dimensions.get('Name').lower():
 
-            results[beam_id] = max_uniform_load_kn_per_m
+            results[beam_id] = 1
     
 
     return results
