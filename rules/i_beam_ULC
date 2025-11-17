@@ -1,12 +1,18 @@
 import math
 
-def i_beam_uniform_load_capacity(h, b, r, tw, tf, l, fy=250.0):
- 
- 
- 
+def i_beam_uniform_load_capacity(h, b, r, tw, tf, L, fy=250.0):
+    """
+    Calculate uniform load capacity (kN/m) of a symmetric steel I-beam on a simply supported span.
+    Units:
+      h, b, r, tw, tf: mm
+      L: m
+      fy: MPa (N/mm^2)
+    Returns:
+      { 'I_mm4': ..., 'S_mm3': ..., 'M_resisting_kNm': ..., 'w_allow_kN_per_m': ... }
+    """
     # Basic checks
-    if l <= 0:
-        raise ValueError("Span l must be > 0 (m).")
+    if L <= 0:
+        raise ValueError("Span L must be > 0 (m).")
     if any(x <= 0 for x in (h, b, tw, tf)):
         raise ValueError("h, b, tw, tf must be positive (mm).")
 
@@ -45,7 +51,7 @@ def i_beam_uniform_load_capacity(h, b, r, tw, tf, l, fy=250.0):
 
     # Uniform load capacity for simply supported beam: max moment = w*L^2/8 => w = 8*M / L^2
     # Use M in N*m to get w in N/m, then convert to kN/m
-    w_allow_N_per_m = 8.0 * M_resisting_Nm / (l**2)  # N/m
+    w_allow_N_per_m = 8.0 * M_resisting_Nm / (L**2)  # N/m
     w_allow_kN_per_m = w_allow_N_per_m / 1000.0      # kN/m
 
     return {
@@ -53,18 +59,24 @@ def i_beam_uniform_load_capacity(h, b, r, tw, tf, l, fy=250.0):
         'S_mm3': S,
         'M_resisting_kNm': M_resisting_kNm,
         'w_allow_kN_per_m': w_allow_kN_per_m,
+        'area_flange_mm2': A_flange,
+        'area_web_mm2': A_web,
+        'hw_mm': hw
     }
 
 # Example usage:
+if __name__ == "__main__":
+    # Example geometry (mm) and span (m)
+    h = 300.0   # mm
+    b = 150.0   # mm
+    r = 10.0    # mm (ignored in inertia calc)
+    tw = 8.0    # mm
+    tf = 12.0   # mm
+    L = 6.0     # m
+    fy = 355.0  # MPa
 
-h = 300.0   # mm
-b = 150.0   # mm
-r = 10.0    # mm (ignored in inertia calc)
-tw = 8.0    # mm
-tf = 12.0   # mm
-l = 1.3     # m
-fy = 355.0  # MPa
-
-res = i_beam_uniform_load_capacity(h, b, r, tw, tf, l, fy=fy)
-
-print(res)
+    res = i_beam_uniform_load_capacity(h, b, r, tw, tf, L, fy=fy)
+    print("I (mm^4):", round(res['I_mm4'], 2))
+    print("S (mm^3):", round(res['S_mm3'], 2))
+    print("Resisting moment M (kN·m):", round(res['M_resisting_kNm'], 3))
+    print("Allowable uniform load w (kN/m):", round(res['w_allow_kN_per_m'], 3))
