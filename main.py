@@ -32,6 +32,8 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 #print("Max UDL result:", maxUDLResult)
 # print(maxUDLResult['08KUHnYqn7HvCxSyjUsDVX'])
 
+# hello worl
+
 
 
 
