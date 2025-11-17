@@ -5,6 +5,7 @@ from rules import BeamClassifications
 from rules import Dimensions
 from rules import GeoDimensions
 from rules import max_UDL
+from rules import i_beam_ULC
 
 
 model = ifcopenshell.open("samples/25-16-D-STR.ifc")
@@ -26,13 +27,14 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 
 DimensionsResult = Dimensions.beam_dimensions(model)
 #print("Dimensions result:", DimensionsResult)
-# print(DimensionsResult['08KUHnYqn7HvCxSyjUsDVX'])
+#print(DimensionsResult['08KUHnYqn7HvCxSyjUsDQb'])
 
 maxUDLResult = max_UDL.checkRule(DimensionsResult)
 #print("Max UDL result:", maxUDLResult)
 print(maxUDLResult['08KUHnYqn7HvCxSyjUsDQb'])
 
-# hello worl
+
+# Example usage:
 
 
 

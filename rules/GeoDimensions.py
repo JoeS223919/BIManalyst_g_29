@@ -60,7 +60,7 @@ def checkRule(ifc_file):
                 "Name": getattr(beam, "Name", None),
                 "b": round(width_mm, 2),
                 "h": round(height_mm, 2),
-                "l": round(length_mm, 2)
+                "l": round(length_mm, 2),
             }
 
         except Exception as e:
