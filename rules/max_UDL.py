@@ -19,13 +19,8 @@ def checkRule(beam_info_dict):
         if length_mm < 500:
             continue
 
-        # Convert mm to meters
-        width_m = width_mm / 1000
-        height_m = height_mm / 1000
+        # Convert length to meters  
         length_m = length_mm / 1000
-        radius_m = radius_mm / 1000
-        thickness_body_m = thickness_body_mm / 1000
-        thickness_flange_m = thickness_flange_mm / 1000
 
         if "HEM".lower() in dimensions.get('Name').lower():
             material_strength_mpa = 250  # Example: 250 MPa for structural steel
