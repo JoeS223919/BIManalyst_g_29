@@ -1,46 +1,42 @@
-def uniform_load_capacity(h, b, L, d, As, fck, fyk):
+def uniform_load_capacity(h, b, L, d, As, fck, fyk,
+                                          alpha_cc=0.85, gamma_c=1.5, gamma_s=1.15):
     """
-    Compute uniform load capacity (kN/m) for a simply supported
-    singly reinforced rectangular concrete beam governed by bending.
-    
+    Compute uniform load capacity (kN/m) for a simply supported,
+    singly reinforced rectangular concrete beam using Eurocode-like design.
     Inputs:
-        h   : total height (mm)
-        b   : width (mm)
-        L   : span (mm)
-        d   : effective depth (mm)
-        As  : steel area (mm^2)
-        fck : concrete strength (MPa = N/mm^2)
-        fyk : steel yield strength (MPa = N/mm^2)
-
+      h, b, L, d, As  : geometry in mm (L = span in m)
+      fck, fyk        : characteristic strengths in MPa (N/mm^2)
+    Optional:
+      alpha_cc, gamma_c, gamma_s : defaults 0.85, 1.5, 1.15 (Eurocode typical)
     Returns:
-        w   : uniform load capacity (kN/m)
+      w_design_kN_per_m : design uniform load in kN/m
     """
-
     from math import isfinite
 
-    if L <= 0 or not isfinite(L):
-        raise ValueError("Span L must be positive.")
+    if not (h > 0 and b > 0 and L > 0 and d > 0 and As > 0):
+        raise ValueError("All geometric inputs must be positive (in mm).")
+    if not isfinite(fck) or not isfinite(fyk):
+        raise ValueError("Material strengths must be finite numbers.")
 
-    # --- Material design limits (no partial factors unless user asks) ---
-    fcd = 0.85 * fck     # concrete design compressive block stress (N/mm^2)
-    fyd = fyk            # steel yield (no safety factors here)
+    # Convert L to mm
+    L = L*1000
 
-    # --- Neutral axis depth (a) and lever arm z ---
-    # Whitney rectangular stress block: a = As * fyd / (0.85 fck * b)
-    a = As * fyd / (fcd * b)          # mm
-    z = d - a / 2.0                   # mm
+    # Design strengths (N/mm^2)
+    fcd = alpha_cc * fck / gamma_c   # concrete design compressive stress
+    fyd = fyk / gamma_s              # steel design yield
 
-    # --- Bending moment capacity ---
-    M_Nmm = As * fyd * z              # N·mm
+    # Whitney rectangular stress block (Eurocode-like simple approach)
+    a = As * fyd / (fcd * b)         # depth of equivalent rectangular block (mm)
+    z = d - a / 2.0                  # internal lever arm (mm)
+    if z <= 0:
+        raise ValueError("Resulting lever arm z <= 0 (check As, d, fck, fyk).")
 
-    # Convert to kN·m
+    # Moment capacity (N*mm -> kN*m)
+    M_Nmm = As * fyd * z
     M_kNm = M_Nmm * 1e-6
 
-    # --- Uniform load capacity ---
-    # For a simply supported beam:
-    #     M = w * L^2 / 8   →   w = 8M / L^2
-    # L is in mm   → convert to meters where needed
+    # Uniform load for simply supported beam: M = w * L^2 / 8
     L_m = L / 1000.0
-    w = (8.0 * M_kNm) / (L_m**2)      # kN/m
+    w_kN_per_m = (8.0 * M_kNm) / (L_m**2)
 
-    return w
+    return w_kN_per_m
