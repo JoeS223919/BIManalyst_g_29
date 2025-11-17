@@ -47,7 +47,10 @@ def beam_dimensions(model):
                 "Name": getattr(beam, "Name", None),
                 "b": dimensions.get("b"),
                 "h": dimensions.get("h"),
-                "l": cut_length
+                "l": cut_length,
+                "r": dimensions.get("r", 0),
+                "tf": dimensions.get("tf", 0),
+                "tw": dimensions.get("tw", 0)
             }
 
     return results
