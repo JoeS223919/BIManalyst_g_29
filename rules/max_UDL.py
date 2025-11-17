@@ -1,6 +1,6 @@
 import ifcopenshell
 
-def checkRule(beam_info_dict, concrete_strength_mpa=25):
+def checkRule(beam_info_dict):
     results = {}
 
     for beam_id, dimensions in beam_info_dict.items():
@@ -21,8 +21,18 @@ def checkRule(beam_info_dict, concrete_strength_mpa=25):
         height_m = height_mm / 1000
         length_m = length_mm / 1000
 
+        # Specifying the material strength
+        if "concrete".lower() in dimensions.get('Name').lower():
+            material_strength_mpa = 30  # Example: 30 MPa for normal concrete
+        elif "glulam".lower() in dimensions.get('Name').lower():
+            material_strength_mpa = 20  # Example: 20 MPa for glulam
+        elif "HEM".lower() in dimensions.get('Name').lower():
+            material_strength_mpa = 250  # Example: 250 MPa for structural steel
+        else:
+            material_strength_mpa = 30
+
         # Convert MPa to N/m²
-        f_c = concrete_strength_mpa * 10**6
+        f_c = material_strength_mpa * 10**6
 
         # Allowable bending stress (approximate factor for concrete)
         allowable_stress = 0.45 * f_c
