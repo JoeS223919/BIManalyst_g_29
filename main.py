@@ -31,7 +31,7 @@ DimensionsResult = Dimensions.beam_dimensions(model)
 
 maxUDLResult = max_UDL.checkRule(DimensionsResult)
 #print("Max UDL result:", maxUDLResult)
-print(maxUDLResult['08KUHnYqn7HvCxSyjUsDQb'])
+print(maxUDLResult['1Ab4ISo4v56xTNKdr$YOJg'])
 
 
 # Example usage:
