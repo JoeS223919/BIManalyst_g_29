@@ -21,13 +21,13 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 
 
 
-# GeodimensionsResult =  GeoDimensions.checkRule(model)
-# print("GeoDimensions result:", GeodimensionsResult)
+GeodimensionsResult =  GeoDimensions.checkRule(model)
+print("GeoDimensions result:", GeodimensionsResult)
 # print(GeodimensionsResult['08KUHnYqn7HvCxSyjUsDVX'])
 
 #DimensionsResult = Dimensions.beam_dimensions(model)
 #print("Dimensions result:", DimensionsResult)
-# print(DimensionsResult['08KUHnYqn7HvCxSyjUsDVX'])
+#print(DimensionsResult['08KUHnYqn7HvCxSyjUsDQb'])
 
 # maxUDLResult = max_UDL.checkRule(DimensionsResult)
 #print("Max UDL result:", maxUDLResult)
