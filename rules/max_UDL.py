@@ -19,8 +19,10 @@ def checkRule(beam_info_dict):
             continue
 
         if length_mm < 500:
+            results[beam_id] = None  # Length too short for calculation
             continue
-
+        
+        
         # Convert length to meters  
         length_m = length_mm / 1000
 
@@ -42,10 +44,17 @@ def checkRule(beam_info_dict):
             results[beam_id] = Concrete_ULC. uniform_load_capacity(height_mm, width_mm, length_m, d, As, fck, fyk), 'Concrete'
         
         elif "glulam".lower() in dimensions.get('Name').lower():
+            if height_mm < 130:
+                results[beam_id] = None  # Width too small for glulam calculation
+                continue
+
             # Example: 24 MPa for glulam
             material_strength_mpa = 24 
 
             # Calculate maximum uniform load using Glulam_ULC module
-            results[beam_id] = Glulam_ULC.uniform_load_capacity(height_mm, width_mm, length_m, material_strength_mpa), 'glulam'
+            results[beam_id] = Glulam_ULC.uniform_load_capacity(height_mm, width_mm, length_m, material_strength_mpa), 'Glulam'
     
+    # Remove entries with None values
+    results = {k: v for k, v in results.items() if v is not None}
+
     return results
