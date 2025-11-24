@@ -29,7 +29,7 @@ def checkRule(beam_info_dict):
             material_strength_mpa = 250
 
             # Calculate maximum uniform load using i_beam_ULC module
-            results[beam_id] = i_beam_ULC.uniform_load_capacity(height_mm, width_mm, thickness_body_mm, thickness_flange_mm, length_m, material_strength_mpa)
+            results[beam_id] = i_beam_ULC.uniform_load_capacity(height_mm, width_mm, thickness_body_mm, thickness_flange_mm, length_m, material_strength_mpa), 'Steel'
         
         elif "concrete".lower() in dimensions.get('Name').lower():
             # Example: 30 MPa for normal concrete
@@ -39,13 +39,13 @@ def checkRule(beam_info_dict):
             As = (0.85 * fck * width_mm * d) / (0.87 * fyk) # Simplified area of steel calculation
 
             # Calculate maximum uniform load using concrete beam ULC function
-            results[beam_id] = Concrete_ULC. uniform_load_capacity(height_mm, width_mm, length_m, d, As, fck, fyk)
+            results[beam_id] = Concrete_ULC. uniform_load_capacity(height_mm, width_mm, length_m, d, As, fck, fyk), 'Concrete'
         
         elif "glulam".lower() in dimensions.get('Name').lower():
             # Example: 24 MPa for glulam
             material_strength_mpa = 24 
 
             # Calculate maximum uniform load using Glulam_ULC module
-            results[beam_id] = Glulam_ULC.uniform_load_capacity(height_mm, width_mm, length_m, material_strength_mpa)
+            results[beam_id] = Glulam_ULC.uniform_load_capacity(height_mm, width_mm, length_m, material_strength_mpa), 'glulam'
     
     return results
