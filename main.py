@@ -18,11 +18,9 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 # beamClassificationsResult = BeamClassifications.checkRule(model1, 1)
 
 
-
-
 GeodimensionsResult =  GeoDimensions.checkRule(model)
 #print("GeoDimensions result:", GeodimensionsResult)
-#print(GeodimensionsResult['3ytvioMv103f0VZ6SKy88m'])
+print(GeodimensionsResult['08KUHnYqn7HvCxSyjUsDVX'])
 
 DimensionsResult = Dimensions.beam_dimensions(model)
 #print("Dimensions result:", DimensionsResult)
