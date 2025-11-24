@@ -24,7 +24,7 @@ DimensionsResult = Dimensions.beam_dimensions(model)
 
 maxUDLResult = max_UDL.checkRule(DimensionsResult)
 # print("Max UDL result:", maxUDLResult)
-print(maxUDLResult["0kMAKvmNr5WhMLClkIAwid"])
+# print(maxUDLResult["0kMAKvmNr5WhMLClkIAwid"])
 
 
 LineloadsReport = {"Concrete": 26.12, "Steel": 14.97, "Glulam": 17.2}
