@@ -44,6 +44,10 @@ def checkRule(beam_info_dict):
             results[beam_id] = Concrete_ULC. uniform_load_capacity(height_mm, width_mm, length_m, d, As, fck, fyk), 'Concrete'
         
         elif "glulam".lower() in dimensions.get('Name').lower():
+            if width_mm < 160:
+                results[beam_id] = None  # Width too small for glulam calculation
+                continue
+            
             # Example: 24 MPa for glulam
             material_strength_mpa = 24 
 
@@ -52,5 +56,5 @@ def checkRule(beam_info_dict):
     
     # Remove entries with None values
     results = {k: v for k, v in results.items() if v is not None}
-    
+
     return results
