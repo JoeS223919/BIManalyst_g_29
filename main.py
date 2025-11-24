@@ -14,15 +14,9 @@ model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 
 
 
-<<<<<<< HEAD
-GeodimensionsResult =  GeoDimensions.checkRule(model)
-#print("GeoDimensions result:", GeodimensionsResult)
-print(GeodimensionsResult['08KUHnYqn7HvCxSyjUsDVX'])
-=======
 #GeodimensionsResult =  GeoDimensions.checkRule(model)
 # print("GeoDimensions result:", GeodimensionsResult)
 # print(GeodimensionsResult['08KUHnYqn7HvCxSyjUsDVX'])
->>>>>>> 86010926daa3a8e2f0a755b8028bc38728952da0
 
 DimensionsResult = Dimensions.beam_dimensions(model)
 #print("Dimensions result:", DimensionsResult)
