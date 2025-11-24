@@ -55,12 +55,12 @@ for beam_id, result in maxUDLResult.items():
             beams_not_dimensioned_right[material_key].append(beam_id)
         
 # Print results
-print(f"{material_counts_right['Concrete']} Concrete beams ABOVE required dimensions")
-print(f"{material_counts_wrong['Concrete']} Concrete beams BELOW required dimensions")
-print(f"{material_counts_right['Steel']} Steel beams ABOVE required dimensions")
-print(f"{material_counts_wrong['Steel']} Steel beams BELOW required dimensions")
-print(f"{material_counts_right['Glulam']} Glulam beams ABOVE required dimensions")
-print(f"{material_counts_wrong['Glulam']} Glulam beams BELOW required dimensions")
+print(f"{material_counts_right['Concrete']} Concrete beams ABOVE required capacity")
+print(f"{material_counts_wrong['Concrete']} Concrete beams BELOW required capacity")
+print(f"{material_counts_right['Steel']} Steel beams ABOVE required capacity")
+print(f"{material_counts_wrong['Steel']} Steel beams BELOW required capacity")
+print(f"{material_counts_right['Glulam']} Glulam beams ABOVE required capacity")
+print(f"{material_counts_wrong['Glulam']} Glulam beams BELOW required capacity")
 
 # Print GlobalIds of all beams that are NOT dimensioned right
 print("\n--- Beams that arent strong enough ---")
