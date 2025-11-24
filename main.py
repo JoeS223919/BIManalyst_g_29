@@ -24,7 +24,7 @@ DimensionsResult = Dimensions.beam_dimensions(model)
 
 maxUDLResult = max_UDL.checkRule(DimensionsResult)
 # print("Max UDL result:", maxUDLResult)
-# print(maxUDLResult["0kMAKvmNr5WhMLClkIAwid"])
+# print(maxUDLResult["0kMAKvmNr5WhMLClkIAwyM"])
 
 
 LineloadsReport = {"Concrete": 26.12, "Steel": 14.97, "Glulam": 17.2}
@@ -32,7 +32,7 @@ LineloadsReport = {"Concrete": 26.12, "Steel": 14.97, "Glulam": 17.2}
 # Validate beams against LineloadsReport
 material_counts_right = {"Concrete": 0, "Steel": 0, "Glulam": 0}
 material_counts_wrong = {"Concrete": 0, "Steel": 0, "Glulam": 0}
-
+beams_not_dimensioned_right = {"Concrete": [], "Steel": [], "Glulam": []}
 
 for beam_id, result in maxUDLResult.items():
     if result is None:
@@ -51,6 +51,8 @@ for beam_id, result in maxUDLResult.items():
             material_counts_right[material_key] += 1
         else:
             material_counts_wrong[material_key] += 1
+            # beam_id is the GlobalId, so store it directly
+            beams_not_dimensioned_right[material_key].append(beam_id)
         
 # Print results
 print(f"{material_counts_right['Concrete']} Concrete beams are dimensioned right")
@@ -59,5 +61,13 @@ print(f"{material_counts_right['Steel']} Steel beams are dimensioned right")
 print(f"{material_counts_wrong['Steel']} Steel beams are NOT dimensioned right")
 print(f"{material_counts_right['Glulam']} Glulam beams are dimensioned right")
 print(f"{material_counts_wrong['Glulam']} Glulam beams are NOT dimensioned right")
+
+# Print GlobalIds of all beams that are NOT dimensioned right
+print("\n--- Beams NOT dimensioned right ---")
+for material, globalids in beams_not_dimensioned_right.items():
+    if globalids:
+        print(f"\n{material} ({len(globalids)}):")
+        for globalid in globalids:
+            print(f"  {globalid}")
 
 
