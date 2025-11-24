@@ -33,6 +33,7 @@ LineloadsReport = {"Concrete": 26.12, "Steel": 14.97, "Glulam": 17.2}
 material_counts_right = {"Concrete": 0, "Steel": 0, "Glulam": 0}
 material_counts_wrong = {"Concrete": 0, "Steel": 0, "Glulam": 0}
 
+
 for beam_id, result in maxUDLResult.items():
     if result is None:
         continue
@@ -50,7 +51,7 @@ for beam_id, result in maxUDLResult.items():
             material_counts_right[material_key] += 1
         else:
             material_counts_wrong[material_key] += 1
-
+        
 # Print results
 print(f"{material_counts_right['Concrete']} Concrete beams are dimensioned right")
 print(f"{material_counts_wrong['Concrete']} Concrete beams are NOT dimensioned right")
@@ -58,4 +59,5 @@ print(f"{material_counts_right['Steel']} Steel beams are dimensioned right")
 print(f"{material_counts_wrong['Steel']} Steel beams are NOT dimensioned right")
 print(f"{material_counts_right['Glulam']} Glulam beams are dimensioned right")
 print(f"{material_counts_wrong['Glulam']} Glulam beams are NOT dimensioned right")
+
 
