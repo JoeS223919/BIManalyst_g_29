@@ -1,26 +1,19 @@
 import ifcopenshell
 import ifcopenshell.util.classification
 
-from rules import BeamClassifications
-from rules import Dimensions
-from rules import GeoDimensions
-from rules import max_UDL
-from rules import i_beam_ULC
+
+import Dimensions
+import GeoDimensions
+import max_UDL
+import i_beam_ULC
 
 
 model = ifcopenshell.open("samples/25-16-D-STR.ifc")
 model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
 
 
-
-
-<<<<<<< HEAD
-#GeodimensionsResult =  GeoDimensions.checkRule(model)
-# print("GeoDimensions result:", GeodimensionsResult)
-=======
 GeodimensionsResult =  GeoDimensions.checkRule(model)
 #print("GeoDimensions result:", GeodimensionsResult)
->>>>>>> e7e247e3ab6aa7088e6ac196cb9ec6584f5779f7
 # print(GeodimensionsResult['08KUHnYqn7HvCxSyjUsDVX'])
 
 DimensionsResult = Dimensions.beam_dimensions(model)
