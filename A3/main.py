@@ -3,9 +3,7 @@ import Dimensions
 import GeoDimensions
 import max_UDL
 
-model = ifcopenshell.open("samples/25-16-D-STR.ifc")
-model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")
-
+model = ifcopenshell.open("A3/samples/25-16-D-STR.ifc")
 
 GeodimensionsResult =  GeoDimensions.checkRule(model)
 #print("GeoDimensions result:", GeodimensionsResult)
