@@ -3,7 +3,7 @@ import Dimensions
 import GeoDimensions
 import max_UDL
 
-model = ifcopenshell.open("A3/samples/25-16-D-STR.ifc")
+model = ifcopenshell.open("A3 and A4/samples/25-16-D-STR.ifc")
 
 
 
