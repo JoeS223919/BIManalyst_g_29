@@ -1,12 +1,7 @@
 import ifcopenshell
-import ifcopenshell.util.classification
-
-
 import Dimensions
 import GeoDimensions
 import max_UDL
-import i_beam_ULC
-
 
 model = ifcopenshell.open("samples/25-16-D-STR.ifc")
 model1 = ifcopenshell.open("samples/Exercise9_Group10.ifc")

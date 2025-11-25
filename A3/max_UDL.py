@@ -1,7 +1,7 @@
 import ifcopenshell
-from A3 import i_beam_ULC
-from A3 import Glulam_ULC
-from A3 import Concrete_ULC
+import i_beam_ULC
+import Glulam_ULC
+import Concrete_ULC
 
 def checkRule(beam_info_dict):
     results = {}
