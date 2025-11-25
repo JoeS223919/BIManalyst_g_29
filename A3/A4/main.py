@@ -13,7 +13,7 @@ GeodimensionsResult =  GeoDimensions.checkRule(model)
 
 DimensionsResult = Dimensions.beam_dimensions(model)
 #print("Dimensions result:", DimensionsResult)
-# print(DimensionsResult['08KUHnYqn7HvCxSyjUsDQb'])
+#print(DimensionsResult['08KUHnYqn7HvCxSyjUsDQb'])
 
 maxUDLResult = max_UDL.checkRule(DimensionsResult)
 # print("Max UDL result:", maxUDLResult)
