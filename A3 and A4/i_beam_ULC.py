@@ -1,15 +1,10 @@
 """
-i_beam_capacity.py
 
-Compute section properties and uniform load bending capacity for a symmetric I-beam
-using the rectangular-flange + web approximation (fillets ignored).
-
-Inputs are in the same units you gave (mm for geometry, MPa for fy, m for span L).
+Inputs are in the units (mm for geometry, MPa for fy, m for span L).
 
 Outputs: I (mm^4), S (mm^3), Z (mm^3), My & Mp (kN·m), and uniform load w (kN/m)
 for both elastic (first-yield) and plastic capacities for a simply supported beam.
 
-Usage: python i_beam_capacity.py
 
 """
 

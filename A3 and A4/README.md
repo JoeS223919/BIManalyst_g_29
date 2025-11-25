@@ -1,4 +1,0 @@
-# BIManalyst group 29
-
-
-

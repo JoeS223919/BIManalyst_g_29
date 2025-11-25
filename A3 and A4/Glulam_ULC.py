@@ -1,7 +1,5 @@
 def uniform_load_capacity(h, b, L, fm):
     """
-    Compute the uniform load bending capacity (kN/m) of a rectangular glulam beam.
-    
     Parameters:
         h  : beam depth (m)
         b  : beam width (m)

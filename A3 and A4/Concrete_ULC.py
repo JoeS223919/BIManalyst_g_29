@@ -1,9 +1,6 @@
 def uniform_load_capacity(h, b, L, d, As, fck, fyk,
                                           alpha_cc=0.85, gamma_c=1.5, gamma_s=1.15):
     """
-    Compute uniform load capacity (kN/m) for a simply supported,
-    singly reinforced rectangular concrete beam using Eurocode-like design.
-    Inputs:
       h, b, L, d, As  : geometry in mm (L = span in m)
       fck, fyk        : characteristic strengths in MPa (N/mm^2)
     Optional:
